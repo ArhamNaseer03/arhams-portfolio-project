@@ -1068,7 +1068,7 @@
     <span class="contact-eyebrow">Let's Talk</span>
     <h2 class="contact-title">Got something in mind?</h2>
     <p class="contact-sub">Whether it's a job opportunity, a project idea, or just a conversation about AI and product — I'd love to hear from you. Fill out the form below and I'll get back to you within 2–3 business days.</p>
-    <a href="mailto:arham23naseer@gmail.com" class="contact-email-link">arham23naseer@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#d4b5a6bcb5b9e6e7bab5a7b1b1a694b3b9b5bdb8fab7bbb9" class="contact-email-link"><span class="__cf_email__" data-cfemail="5e3f2c363f336c6d303f2d3b3b2c1e39333f3732703d3133">[email&#160;protected]</span></a>
 
     <div class="contact-form">
       <div id="formContent">
@@ -1119,7 +1119,7 @@
 <footer>
   <div class="footer-name">Arham Naseer</div>
   <div class="footer-links">
-    <a href="mailto:arham23naseer@gmail.com">arham23naseer@gmail.com</a>
+    <a href="/cdn-cgi/l/email-protection#6a0b18020b075859040b190f0f182a0d070b030644090507"><span class="__cf_email__" data-cfemail="01607369606c33326f607264647341666c60686d2f626e6c">[email&#160;protected]</span></a>
     <a href="https://www.linkedin.com/in/arham-naseer/" target="_blank">LinkedIn</a>
     <a href="#hero">Back to top ↑</a>
   </div>
@@ -1189,7 +1189,7 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── SCROLL REVEAL ──
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
@@ -1357,7 +1357,7 @@ async function sendMsgText(text) {
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-api-key': 'sk-ant-api03-hqAYoh2vzlPzD9c5Eoa7OMUF7E2RBqKuu_vb_7j49IaKc-EQvm6cfQIFA7CIHpgQB_0dGF21hXCHrS_sgRst5A-wTPAIQAA', 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 1000,
@@ -1385,18 +1385,3 @@ async function sendMsgText(text) {
       };
       const b2 = document.createElement('button');
       b2.className = 'chat-action-btn secondary';
-      b2.textContent = '✕ Maybe later';
-      b2.onclick = () => btns.remove();
-      btns.appendChild(b);
-      btns.appendChild(b2);
-      msgs.appendChild(btns);
-      msgs.scrollTop = msgs.scrollHeight;
-    }
-  } catch(e) {
-    removeTyping();
-    addMsg("I'm having a little trouble right now — reach Arham directly at arham23naseer@gmail.com!", 'bot');
-  }
-}
-</script>
-</body>
-</html>
