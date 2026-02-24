@@ -1378,6 +1378,10 @@ async function sendMsgText(text) {
     });
     const data = await res.json();
     removeTyping();
+    if (data.error) {
+      addMsg('Error: ' + data.error.message, 'bot');
+      return;
+    }
     let reply = data.content?.[0]?.text || "I'm having a little trouble right now — reach Arham directly at arham23naseer@gmail.com!";
     const showForm = reply.includes('[SHOW_FORM]');
     reply = reply.replace('[SHOW_FORM]', '').trim();
