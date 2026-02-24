@@ -33,13 +33,7 @@
     overflow-x: hidden;
   }
 
-  /* ── GOLD GRAIN OVERLAY ── */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none; z-index: 9999; opacity: 0.4;
-  }
+
 
   /* ── NAV ── */
   nav {
@@ -590,7 +584,7 @@
     background: var(--gold);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    cursor: pointer; z-index: 1000;
+    cursor: pointer; z-index: 10000;
     box-shadow: 0 4px 24px rgba(201,168,76,0.35);
     transition: all 0.3s;
   }
@@ -612,7 +606,7 @@
     border: 1px solid var(--gold-border);
     border-radius: 14px;
     display: flex; flex-direction: column;
-    z-index: 1000;
+    z-index: 9998;
     box-shadow: 0 16px 60px rgba(0,0,0,0.6);
     overflow: hidden;
     opacity: 0; transform: translateY(16px) scale(0.96);
@@ -731,6 +725,21 @@
   .modal-close { position: absolute; top: 1.2rem; right: 1.2rem; background: none; border: none; color: var(--text-dim); font-size: 1.1rem; cursor: pointer; transition: color 0.2s; }
   .modal-close:hover { color: var(--gold); }
 
+
+  /* ── EXP SUB ROLES ── */
+  .exp-sub { margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px dashed rgba(201,168,76,0.2); }
+  .exp-sub-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem; font-weight: 600;
+    color: var(--gold); margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .exp-sub-role::before { content: '↳'; font-family: monospace; opacity: 0.6; }
+  .exp-sub-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem; color: var(--text-dim);
+    letter-spacing: 0.06em; margin-bottom: 0.5rem;
+  }
   /* ── REVEAL ── */
   .reveal { opacity: 1; transform: translateY(0); transition: all 0.6s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -817,41 +826,43 @@
   </div>
   <div class="exp-grid">
 
-    <!-- Dayforce PM - Accessibility -->
+    <!-- Dayforce PM - Combined -->
     <div class="exp-item">
       <div class="exp-meta">
         <div class="exp-date">JAN 2026 – PRESENT</div>
         <div class="exp-co">Dayforce</div>
       </div>
       <div class="exp-content">
-        <div class="exp-role">Product Manager — Accessibility</div>
-        <p class="exp-desc">Leading accessibility audits across product teams to ensure WCAG compliance and that customers have full accessibility access in every workflow. Cleaning and prioritizing the accessibility backlog, leveraging AI to simplify automation processes, and building a side project to create AI-powered documentation for improving internal workflows.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">Accessibility / WCAG</span>
-          <span class="exp-tag">Backlog Management</span>
-          <span class="exp-tag">AI Automation</span>
-          <span class="exp-tag">Auditing</span>
-          <span class="exp-tag">Documentation</span>
-        </div>
-      </div>
-    </div>
+        <div class="exp-role">Product Manager</div>
 
-    <!-- Dayforce PM - Globalization -->
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-date">JAN 2025 – AUG 2025</div>
-        <div class="exp-co">Dayforce</div>
-      </div>
-      <div class="exp-content">
-        <div class="exp-role">Product Manager — Globalization</div>
-        <p class="exp-desc">Managed the English-Canadian roadmap implementation into microservices, resolved customer-facing translation issues, and drove globalization quality. Created user stories and assigned tasks across engineering teams to ensure delivery of localization requirements.</p>
-        <div class="exp-tags">
-          <span class="exp-tag">Roadmapping</span>
-          <span class="exp-tag">Microservices</span>
-          <span class="exp-tag">Story Writing</span>
-          <span class="exp-tag">Localization</span>
-          <span class="exp-tag">Stakeholder Mgmt</span>
+        <!-- Accessibility -->
+        <div class="exp-sub">
+          <div class="exp-sub-role">Accessibility Team</div>
+          <div class="exp-sub-date">FEB 2026 – PRESENT</div>
+          <p class="exp-desc">Leading accessibility audits across product teams to ensure WCAG compliance and that customers have full accessibility access in every workflow. Cleaning and prioritizing the accessibility backlog, leveraging AI to simplify automation processes, and building a side project to create AI-powered documentation for improving internal workflows.</p>
+          <div class="exp-tags">
+            <span class="exp-tag">Accessibility / WCAG</span>
+            <span class="exp-tag">Backlog Management</span>
+            <span class="exp-tag">AI Automation</span>
+            <span class="exp-tag">Auditing</span>
+            <span class="exp-tag">Documentation</span>
+          </div>
         </div>
+
+        <!-- Globalization -->
+        <div class="exp-sub">
+          <div class="exp-sub-role">Globalization Team</div>
+          <div class="exp-sub-date">JAN 2026 – FEB 2026</div>
+          <p class="exp-desc">Managed the English-Canadian roadmap implementation into microservices, resolved customer-facing translation issues, and drove globalization quality. Created user stories and assigned tasks across engineering teams to ensure delivery of localization requirements.</p>
+          <div class="exp-tags">
+            <span class="exp-tag">Roadmapping</span>
+            <span class="exp-tag">Microservices</span>
+            <span class="exp-tag">Story Writing</span>
+            <span class="exp-tag">Localization</span>
+            <span class="exp-tag">Stakeholder Mgmt</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1385,4 +1396,18 @@ async function sendMsgText(text) {
       };
       const b2 = document.createElement('button');
       b2.className = 'chat-action-btn secondary';
- 
+       b2.textContent = '✕ Maybe later';
+      b2.onclick = () => btns.remove();
+      btns.appendChild(b);
+      btns.appendChild(b2);
+      msgs.appendChild(btns);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+  } catch(e) {
+    removeTyping();
+    addMsg("I'm having a little trouble right now — reach Arham directly at arham23naseer@gmail.com!", 'bot');
+  }
+}
+</script>
+</body>
+</html>
