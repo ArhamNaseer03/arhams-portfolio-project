@@ -321,20 +321,40 @@ h1 em, h2 em, h3 em { font-style: italic; color: var(--accent-soft); font-weight
   overflow: hidden;
   isolation: isolate;
 }
-.hero-media { position: absolute; inset: 0; z-index: -2; }
-.hero-media img {
-  width: 100%; height: 100%; object-fit: cover; object-position: 60% center;
-  transform: scale(1.12);
-  animation: heroZoom 14s var(--ease-slow) forwards;
+/* Two layers: .hero-media takes the scroll parallax (JS), the img takes the
+   Ken Burns loop (CSS). Splitting them means the transforms never fight.
+   Edge safety: the drift (-1.5% / -1%) is always smaller than the extra
+   margin the zoom creates (up to 6% per side), and .hero clips overflow,
+   so no edge or scrollbar ever shows. */
+.hero-media {
+  position: absolute; inset: 0; z-index: -2;
+  overflow: hidden;
+  will-change: transform;
+  background: #1a1915;           /* shows only if the image fails */
 }
-@keyframes heroZoom { to { transform: scale(1.02); } }
+.hero-media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 55% 48%;      /* the house's entry and glass volume */
+  transform-origin: 55% 48%;
+  will-change: transform;
+  backface-visibility: hidden;
+  animation: kenBurns 20s ease-in-out infinite alternate;
+}
+@keyframes kenBurns {
+  from { transform: scale(1)    translate3d(0, 0, 0); }
+  to   { transform: scale(1.12) translate3d(-1.5%, -1%, 0); }
+}
 /* Layered overlays: legibility gradient + vignette */
+/* The photo is bright daylight, so the overlay does more work: an overall
+   dusk tint, a top band for the nav, a heavy base for the copy and a vignette. */
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background:
-    linear-gradient(180deg, rgba(11,11,10,.55) 0%, rgba(11,11,10,.05) 30%, rgba(11,11,10,.25) 60%, rgba(11,11,10,.96) 100%),
-    linear-gradient(90deg, rgba(11,11,10,.75) 0%, rgba(11,11,10,.15) 55%, rgba(11,11,10,0) 100%),
-    radial-gradient(130% 100% at 50% 40%, transparent 50%, rgba(0,0,0,.55) 100%);
+    linear-gradient(180deg, rgba(11,11,10,.70) 0%, rgba(11,11,10,.18) 28%, rgba(11,11,10,.35) 55%, rgba(11,11,10,.97) 100%),
+    linear-gradient(90deg, rgba(11,11,10,.80) 0%, rgba(11,11,10,.35) 50%, rgba(11,11,10,.05) 100%),
+    radial-gradient(130% 100% at 55% 40%, transparent 45%, rgba(0,0,0,.6) 100%),
+    rgba(11,11,10,.22);
 }
 .hero-content > * { min-width: 0; }
 .hero-content {
@@ -380,6 +400,10 @@ h1 em, h2 em, h3 em { font-style: italic; color: var(--accent-soft); font-weight
 .hero-card-title { font-family: var(--font-display); font-size: 1.3rem; line-height: 1.15; margin: .35rem 0 .2rem; }
 .hero-card-meta { font-size: .75rem; color: var(--text-muted); }
 
+.scroll-cue {
+  display: none !important;
+}
+@media (min-width: 768px) and (min-height: 640px) { .scroll-cue { display: flex !important; } }
 .scroll-cue {
   position: absolute; left: 50%; bottom: 1.75rem; transform: translateX(-50%);
   display: flex; flex-direction: column; align-items: center; gap: .75rem;
@@ -771,14 +795,15 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 .js .reveal.is-in { opacity: 1; transform: none; }
 
 /* Hero entrance */
-.js .hero .enter { opacity: 0; transform: translateY(24px); animation: enter 1.6s var(--ease-slow) forwards; animation-delay: var(--d, .2s); }
+.js .hero .enter { opacity: 0; transform: translateY(28px); animation: enter 1.8s var(--ease-slow) forwards; animation-delay: var(--d, .2s); }
 @keyframes enter { to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
   .js .reveal, .js .hero .enter { opacity: 1; transform: none; }
-  .hero-media img { transform: none; }
+  .hero-media img { animation: none !important; transform: none !important; }
+  .hero-media { transform: none !important; }
   [data-parallax] { transform: none !important; }
 }
 </style>
@@ -834,22 +859,20 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
      =================================================================== -->
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-media">
+    <!-- Hero photo: replace images/hero.jpg (relative path, so it works offline) -->
     <img
-      src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=80"
-      srcset="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=75 900w,
-              https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1600&q=80 1600w,
-              https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2400&q=80 2400w"
-      sizes="100vw"
-      alt="A modern luxury residence at dusk, its glass walls glowing warmly above a landscaped lawn"
-      fetchpriority="high" decoding="async">
+      src="images/hero.jpg"
+      width="736" height="1308"
+      alt="A contemporary two-storey home clad in warm cedar and dark stucco, with floor-to-ceiling glass, a pivot front door and a stone-paved forecourt framed by mature oaks"
+      fetchpriority="high" loading="eager" decoding="async">
   </div>
 
   <div class="container hero-content">
     <div>
-      <p class="eyebrow enter" style="--d:.2s"><span data-cfg="heroEyebrow">Private Real Estate · Toronto</span></p>
-      <h1 id="hero-title" class="enter" style="--d:.35s">Rare homes, <em>quietly</em> placed.</h1>
-      <p class="hero-sub enter" style="--d:.55s" data-cfg="heroSub">Private representation for buyers and sellers of Toronto's most significant residences, from $3M.</p>
-      <div class="hero-actions enter" style="--d:.75s">
+      <p class="eyebrow enter" style="--d:.3s"><span data-cfg="heroEyebrow">Private Real Estate · Toronto</span></p>
+      <h1 id="hero-title" class="enter" style="--d:.6s">Rare homes, <em>quietly</em> placed.</h1>
+      <p class="hero-sub enter" style="--d:1s" data-cfg="heroSub">Private representation for buyers and sellers of Toronto's most significant residences, from $3M.</p>
+      <div class="hero-actions enter" style="--d:1.4s">
         <a class="btn btn--solid" href="#consultation">
           Book a Private Consultation
           <svg class="arrow" viewBox="0 0 18 8" fill="none" aria-hidden="true"><path d="M0 4h17M13.5.5 17 4l-3.5 3.5" stroke="currentColor"/></svg>
@@ -857,7 +880,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
       </div>
     </div>
 
-    <a class="hero-card enter" style="--d:1s" href="#residences" aria-label="View the featured residence">
+    <a class="hero-card enter" style="--d:1.8s" href="#residences" aria-label="View the featured residence">
       <div class="media"><img id="heroCardImg" src="" alt="" loading="lazy" decoding="async"></div>
       <div>
         <p class="hero-card-label">Now presenting</p>
@@ -1383,7 +1406,24 @@ const CONFIG = {
     $$(".count").forEach((el) => (el.textContent = el.dataset.count));
   }
 
-  /* ---- 7. Subtle parallax (desktop, motion allowed) ---------------- */
+  /* ---- 7a. Hero parallax: image moves at ~65% of scroll speed ------- */
+  const hero = $(".hero"), heroMedia = $(".hero-media");
+  if (!reduceMotion && hero && heroMedia) {
+    let heroTicking = false;
+    const moveHero = () => {
+      const y = window.scrollY, h = hero.offsetHeight;
+      // Only while the hero is on screen. Shifting the layer down keeps its
+      // top edge above the viewport and its bottom clipped by .hero.
+      if (y <= h) heroMedia.style.transform = `translate3d(0, ${(y * 0.35).toFixed(1)}px, 0)`;
+      heroTicking = false;
+    };
+    window.addEventListener("scroll", () => {
+      if (!heroTicking) { requestAnimationFrame(moveHero); heroTicking = true; }
+    }, { passive: true });
+    moveHero();
+  }
+
+  /* ---- 7b. Subtle parallax on other images (desktop) ---------------- */
   const parallaxEls = $$("[data-parallax]");
   if (!reduceMotion && parallaxEls.length) {
     let ticking = false;
