@@ -245,7 +245,7 @@ h1 em, h2 em, h3 em { font-style: italic; color: var(--accent-soft); font-weight
   color: var(--accent);
 }
 
-.nav-links { display: none; gap: 2.5rem; }
+.nav-links { display: none; gap: 2.1rem; }
 .nav-links a {
   position: relative;
   font-size: .7rem; font-weight: 500; letter-spacing: .24em; text-transform: uppercase;
@@ -525,6 +525,51 @@ h1 em, h2 em, h3 em { font-style: italic; color: var(--accent-soft); font-weight
 .sig-card li::before { content: ""; width: .9rem; height: 1px; background: var(--hairline); }
 @media (min-width: 700px) { .signature-grid { grid-template-columns: 1fr 1fr; } }
 @media (min-width: 1100px) { .signature-grid { grid-template-columns: repeat(4, 1fr); } }
+
+/* =====================================================================
+   9b. THE SHOP — staggered photo gallery
+   Photos are graded slightly darker/warmer so bright shop lighting
+   sits inside the dark palette; full colour returns on hover.
+   ===================================================================== */
+.shop-grid { display: grid; gap: 3.5rem; }
+.shot-media {
+  position: relative; overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  background: radial-gradient(120% 90% at 30% 20%, #24211c 0%, #121110 60%, #0b0b0a 100%);
+}
+.shot-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.8) saturate(.78) contrast(1.06) sepia(.12);
+  transform: scale(1.04);
+  transition: transform 1.8s var(--ease-slow), filter 1.2s var(--ease);
+}
+.shot-media::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(11,11,10,0) 55%, rgba(11,11,10,.55) 100%);
+  box-shadow: inset 0 0 0 1px rgba(236,230,220,.06);
+}
+.shot:hover .shot-media img { transform: scale(1); filter: brightness(.95) saturate(.95) contrast(1.04) sepia(0); }
+.shot--frame .shot-media { z-index: 1; }
+.shot--frame { position: relative; }
+.shot--frame::before {
+  /* offset gold hairline frame, as on the real estate portrait */
+  content: ""; position: absolute; top: 1.25rem; left: -1.25rem; right: 1.25rem; aspect-ratio: 4 / 3;
+  border: 1px solid var(--hairline); pointer-events: none;
+}
+.shot figcaption {
+  display: grid; grid-template-columns: auto 1fr; gap: .25rem 1.25rem; align-items: baseline;
+  margin-top: 1.75rem; padding-top: 1.4rem; border-top: 1px solid var(--hairline);
+}
+.shot .num { font-family: var(--font-display); font-style: italic; color: var(--accent); font-size: 1.05rem; grid-row: span 2; }
+.shot .title { font-family: var(--font-display); font-size: clamp(1.5rem, 2vw, 1.8rem); line-height: 1.15; }
+.shot .desc { font-size: .88rem; color: var(--text-muted); }
+@media (min-width: 900px) {
+  .shop-grid { grid-template-columns: repeat(3, 1fr); gap: 3rem; align-items: start; }
+  .shot:nth-child(2) { margin-top: 7rem; }
+  .shot:nth-child(3) { margin-top: 3.5rem; }
+}
+.shop-foot { margin-top: clamp(4rem, 7vw, 6rem); display: flex; justify-content: center; }
 
 /* =====================================================================
    10. SERVICE MENU — set like a fine-dining menu
@@ -888,6 +933,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
     <nav aria-label="Primary">
       <ul class="nav-links">
         <li><a href="#services">Services</a></li>
+        <li><a href="#shop">The Shop</a></li>
         <li><a href="#mobile">Mobile</a></li>
         <li><a href="#standard">Why Ammar</a></li>
         <li><a href="#reviews">Reviews</a></li>
@@ -913,10 +959,11 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 <div class="mobile-menu" id="mobile-menu" aria-label="Menu" role="dialog" aria-modal="true">
   <ul>
     <li><a href="#services"><span>01</span>Services</a></li>
-    <li><a href="#mobile"><span>02</span>Mobile</a></li>
-    <li><a href="#standard"><span>03</span>Why Ammar</a></li>
-    <li><a href="#reviews"><span>04</span>Reviews</a></li>
-    <li><a href="#visit"><span>05</span>Visit</a></li>
+    <li><a href="#shop"><span>02</span>The Shop</a></li>
+    <li><a href="#mobile"><span>03</span>Mobile</a></li>
+    <li><a href="#standard"><span>04</span>Why Ammar</a></li>
+    <li><a href="#reviews"><span>05</span>Reviews</a></li>
+    <li><a href="#visit"><span>06</span>Visit</a></li>
   </ul>
   <a class="btn btn--solid" href="#book">Book a Service</a>
   <p class="menu-contact">
@@ -1065,12 +1112,68 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 </section>
 
 <!-- ===================================================================
+     THE SHOP — photos live in images/ (relative paths, work offline)
+     =================================================================== -->
+<section class="section" id="shop" aria-labelledby="shop-title" style="padding-top:0">
+  <div class="container">
+    <header class="section-head">
+      <p class="eyebrow reveal">02 — The Shop</p>
+      <h2 id="shop-title" class="reveal" style="--d:.1s">Real bays. <em>Real</em> hands.</h2>
+      <p class="intro reveal" style="--d:.2s">A large, fully equipped shop at the back of 1480 Midland, with tires racked floor to ceiling, hoists in every bay and a dedicated alignment rack.</p>
+    </header>
+
+    <div class="shop-grid">
+      <figure class="shot shot--frame reveal">
+        <div class="shot-media">
+          <img src="images/shop-team.jpg" width="680" height="510" loading="lazy" decoding="async"
+            style="object-position: 35% 50%"
+            alt="An Ammar Auto technician smiling with a diagnostic tablet in front of racks of tires, with SUVs raised on hoists behind him">
+        </div>
+        <figcaption>
+          <span class="num">i.</span>
+          <span class="title">The team</span>
+          <span class="desc">Diagnostics in hand, ready for whatever pulls in.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="shot reveal" style="--d:.12s">
+        <div class="shot-media">
+          <img src="images/shop-sedan.jpg" width="680" height="510" loading="lazy" decoding="async"
+            alt="A blue sedan raised on a floor jack inside the shop, ready for tire and brake work">
+        </div>
+        <figcaption>
+          <span class="num">ii.</span>
+          <span class="title">Tires &amp; brakes</span>
+          <span class="desc">Wheels off and inspected, bay by bay.</span>
+        </figcaption>
+      </figure>
+
+      <figure class="shot reveal" style="--d:.24s">
+        <div class="shot-media">
+          <img src="images/shop-alignment.jpg" width="680" height="510" loading="lazy" decoding="async"
+            alt="A grey SUV on the shop's red alignment rack, with tire racks and tool carts behind">
+        </div>
+        <figcaption>
+          <span class="num">iii.</span>
+          <span class="title">Wheel alignment</span>
+          <span class="desc">Set straight on our Hunter alignment rack.</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="shop-foot reveal">
+      <a class="text-link" href="#visit">Visit the shop, open 24 hours</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
      FULL SERVICE MENU — from CONFIG.menu
      =================================================================== -->
 <section class="section menu-section" id="menu" aria-labelledby="menu-title">
   <div class="container">
     <header class="section-head">
-      <p class="eyebrow reveal">02 — The Service Menu</p>
+      <p class="eyebrow reveal">03 — The Service Menu</p>
       <h2 id="menu-title" class="reveal" style="--d:.1s">Everything, <em>under one roof.</em></h2>
       <p class="intro reveal" style="--d:.2s">Ask for a quote on anything below. We'll give you a clear price before any work begins.</p>
     </header>
@@ -1097,7 +1200,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
   </div>
   <div class="container mobile-grid">
     <div class="mobile-copy">
-      <p class="eyebrow reveal">03 — Mobile Service</p>
+      <p class="eyebrow reveal">04 — Mobile Service</p>
       <h2 id="mobile-title" class="reveal" style="--d:.1s">Wherever you are, <em>we come to you.</em></h2>
       <p class="lead reveal" style="--d:.2s">A flat on the highway, a dead battery in the driveway, a tire change at the office. Our mobile tire and mechanic team is on call 24 hours a day, anywhere in the GTA.</p>
       <div class="mobile-actions reveal" style="--d:.3s">
@@ -1124,7 +1227,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 <section class="section" id="standard" aria-labelledby="standard-title">
   <div class="container">
     <header class="section-head">
-      <p class="eyebrow reveal">04 — The Ammar Standard</p>
+      <p class="eyebrow reveal">05 — The Ammar Standard</p>
       <h2 id="standard-title" class="reveal" style="--d:.1s">Why drivers <em>keep</em> coming back.</h2>
       <p class="intro reveal" style="--d:.2s">Nearly a thousand Google reviews say the same four things. We've simply written them down.</p>
     </header>
@@ -1180,7 +1283,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 <section class="section testimonials" id="reviews" aria-labelledby="reviews-title">
   <div class="container">
     <div class="reviews-top">
-      <p class="eyebrow reveal" id="reviews-title">05 — In Their Words</p>
+      <p class="eyebrow reveal" id="reviews-title">06 — In Their Words</p>
       <p class="rating-pill reveal">
         <strong data-cfg="rating">4.6</strong>
         <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg style="opacity:.55"><use href="#i-star"/></svg></span>
@@ -1228,7 +1331,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
 <section class="section booking" id="book" aria-labelledby="booking-title">
   <div class="container booking-grid">
     <div class="booking-copy">
-      <p class="eyebrow reveal">06 — Book</p>
+      <p class="eyebrow reveal">07 — Book</p>
       <h2 id="booking-title" class="reveal" style="--d:.1s">Your car, <em>looked after.</em></h2>
       <p class="lead reveal" style="--d:.2s">Tell us what your car needs. We'll call you back shortly to confirm a time, in the shop or wherever you are.</p>
       <ul class="expect reveal" style="--d:.3s">
@@ -1312,7 +1415,7 @@ fieldset.field { border: 0; margin: 0; padding: 0; min-width: 0; }
       </div>
 
       <div class="visit-copy">
-        <p class="eyebrow reveal">07 — Visit</p>
+        <p class="eyebrow reveal">08 — Visit</p>
         <h2 id="visit-title" class="reveal" style="--d:.1s">Find us on <em>Midland.</em></h2>
         <div class="visit-details reveal" style="--d:.2s">
           <div>
