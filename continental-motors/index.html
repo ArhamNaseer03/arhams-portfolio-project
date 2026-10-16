@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+
+<!-- =====================================================================
+     SEO — edit title, description, URL and share image
+     ===================================================================== -->
+<title>Continental Motors</title>
+<meta name="description" content="Honest auto repair at 650 Markham Rd, Scarborough. Oil changes, brakes, tires, alignments, transmissions and Ontario safety certificates. Book your service online.">
+<meta name="theme-color" content="#0f1b2d">
+<link rel="canonical" href="https://www.example.com/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Continental Motors | Auto Repair in Scarborough">
+<meta property="og:description" content="Honest auto repair on Markham Road. Fair prices, and no work you don't need.">
+<meta property="og:url" content="https://www.example.com/">
+<meta property="og:image" content="https://www.example.com/images/storefront.jpg">
+<meta property="og:locale" content="en_CA">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Structured data (refreshed from CONFIG by the script below) -->
+<script type="application/ld+json" id="jsonld">
+{
+  "@context": "https://schema.org",
+  "@type": "AutoRepair",
+  "name": "Continental Motors",
+  "url": "https://www.example.com/",
+  "telephone": "+1-647-351-7692",
+  "image": "https://www.example.com/images/storefront.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "650 Markham Rd",
+    "addressLocality": "Scarborough",
+    "addressRegion": "ON",
+    "postalCode": "M1H 2A7",
+    "addressCountry": "CA"
+  },
+  "areaServed": "Scarborough, Toronto"
+}
+</script>
+
+<style>
+/* =====================================================================
+   1. THEME — re-skin here.
+   Layout concept: a service ticket on a shop wall. Deep sign-blue grounds,
+   one concrete-grey band for the service menu, signal yellow only for the
+   booking action and live status. Work-order details set in mono.
+   ===================================================================== */
+:root {
+  color-scheme: dark;
+
+  --ink:        #0f1b2d;   /* page ground — the blue of the shop sign, deepened */
+  --panel:      #15253b;   /* raised panels */
+  --panel-2:    #1b2f4a;   /* hover / inputs */
+  --concrete:   #e6e8ea;   /* light service-menu band */
+  --concrete-2: #d9dde1;
+  --text:       #eef1f4;
+  --text-dark:  #0f1b2d;   /* text on concrete */
+  --muted:      #a3b2c4;   /* AA on --ink */
+  --muted-dark: #4a5a6d;   /* AA on --concrete */
+  --signal:     #f4c23d;   /* the yellow of the "Continental" logo */
+  --signal-hi:  #ffd666;
+  --on-signal:  #1a1405;
+  --ok:         #5fd08a;   /* "open now" */
+  --closed:     #f08a7a;
+  --line:       rgba(238, 241, 244, 0.12);
+  --line-dark:  rgba(15, 27, 45, 0.14);
+
+  --font-display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body:    "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --container: 1240px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-y: clamp(4.5rem, 9vw, 8rem);
+  --radius: 4px;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* =====================================================================
+   2. BASE
+   ===================================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+body::before { /* paints the phone's status-bar band */
+  content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--ink);
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+ul, ol { list-style: none; margin: 0; padding: 0; }
+h1, h2, h3, p, figure, blockquote { margin: 0; }
+button, input, select, textarea { font: inherit; color: inherit; }
+::selection { background: var(--signal); color: var(--on-signal); }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+
+.skip-link {
+  position: absolute; left: 1rem; top: -4rem; z-index: 200;
+  background: var(--signal); color: var(--on-signal); padding: .7rem 1rem; font-weight: 600;
+}
+.skip-link:focus { top: 1rem; }
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+.section { padding-block: var(--section-y); }
+
+/* =====================================================================
+   3. TYPE
+   ===================================================================== */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: .95;
+  letter-spacing: .005em;
+  text-wrap: balance;
+}
+h2 { font-size: clamp(2.5rem, 6vw, 4.25rem); }
+h3 { font-size: 1.6rem; font-weight: 600; line-height: 1.05; }
+.hl { color: var(--signal); }
+
+.tag {  /* work-order style label */
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: var(--font-mono); font-size: .74rem; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted);
+}
+.tag::before { content: ""; width: .5rem; height: .5rem; background: var(--signal); }
+.lead { font-size: clamp(1.05rem, 1.5vw, 1.2rem); color: var(--muted); max-width: 36rem; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* =====================================================================
+   4. BUTTONS — one primary action: Book Your Service
+   ===================================================================== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .7rem;
+  padding: 1rem 1.6rem;
+  font-family: var(--font-display); font-size: 1.15rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; text-decoration: none;
+  color: var(--on-signal); background: var(--signal);
+  border: 2px solid var(--signal); border-radius: var(--radius);
+  cursor: pointer;
+  transition: background-color .25s var(--ease), border-color .25s var(--ease), transform .25s var(--ease);
+  max-width: 100%; text-align: center;
+}
+.btn:hover { background: var(--signal-hi); border-color: var(--signal-hi); }
+.btn:active { transform: translateY(1px); }
+.btn svg { width: 18px; height: 18px; flex: none; transition: transform .25s var(--ease); }
+.btn:hover svg { transform: translateX(3px); }
+.btn--ghost { background: transparent; color: var(--signal); }
+.btn--ghost:hover { background: var(--signal); color: var(--on-signal); }
+.btn--sm { padding: .6rem 1rem; font-size: 1rem; }
+
+.text-link {
+  font-weight: 500; text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  transition: border-color .25s var(--ease), color .25s var(--ease);
+}
+.text-link:hover { color: var(--signal); border-color: var(--signal); }
+
+/* =====================================================================
+   5. NAV
+   ===================================================================== */
+.nav {
+  position: fixed; left: 0; right: 0; top: 0; z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  transition: background-color .3s var(--ease), border-color .3s var(--ease), box-shadow .3s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.nav.is-solid { background: rgba(15, 27, 45, .94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom-color: var(--line); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; height: 4.5rem; }
+.brand { display: flex; align-items: center; gap: .7rem; text-decoration: none; }
+.brand-mark {
+  width: 2.25rem; height: 2.25rem; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 2px solid var(--signal); color: var(--signal);
+  font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; line-height: 1;
+}
+.brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.35rem; letter-spacing: .04em; text-transform: uppercase; line-height: 1; }
+.brand-name small { display: block; font-family: var(--font-mono); font-size: .62rem; font-weight: 400; letter-spacing: .14em; color: var(--muted); margin-top: .25rem; }
+
+.nav-links { display: none; gap: 2rem; }
+.nav-links a { text-decoration: none; font-size: .92rem; font-weight: 500; color: var(--muted); transition: color .2s var(--ease); }
+.nav-links a:hover { color: var(--text); }
+.nav-phone { display: none; font-family: var(--font-mono); font-size: .85rem; color: var(--text); text-decoration: none; }
+.nav-phone:hover { color: var(--signal); }
+.nav-right { display: flex; align-items: center; gap: 1.5rem; }
+@media (min-width: 900px) { .nav-links { display: flex; } }
+@media (min-width: 1100px) { .nav-phone { display: inline; } }
+@media (max-width: 420px) { .brand-name small { display: none; } .nav .btn--sm { padding: .55rem .8rem; font-size: .95rem; } }
+
+/* =====================================================================
+   6. HERO — sized to content, storefront framed (the photo is small)
+   ===================================================================== */
+.hero { position: relative; overflow: hidden; padding-top: calc(7rem + env(safe-area-inset-top, 0px)); padding-bottom: clamp(3.5rem, 7vw, 6rem); isolation: isolate; }
+.hero::before { /* faint blueprint grid */
+  content: ""; position: absolute; inset: 0; z-index: -2;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(80% 70% at 70% 30%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(80% 70% at 70% 30%, #000 0%, transparent 75%);
+  opacity: .55;
+}
+.hero-word { /* oversized outline wordmark behind the hero */
+  position: absolute; left: 50%; bottom: -0.12em; transform: translateX(-50%); z-index: -1;
+  font-family: var(--font-display); font-weight: 700; text-transform: uppercase;
+  font-size: clamp(5rem, 19vw, 17rem); line-height: 1; white-space: nowrap;
+  color: transparent; -webkit-text-stroke: 1px rgba(238, 241, 244, .07);
+  pointer-events: none; user-select: none;
+}
+.hero-grid { display: grid; gap: 3rem; align-items: center; }
+.hero-grid > * { min-width: 0; }
+.hero h1 { font-size: clamp(3.2rem, 9.5vw, 7rem); margin-top: 1.25rem; }
+.hero .lead { margin-top: 1.5rem; }
+.hero-actions { margin-top: 2.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.75rem; }
+.hero-call { font-size: .95rem; color: var(--muted); }
+.hero-call a { font-family: var(--font-mono); color: var(--text); }
+
+.hero-visual { position: relative; padding-bottom: 4.5rem; }
+.hero-photo {
+  position: relative; border-radius: var(--radius); overflow: hidden;
+  aspect-ratio: 680 / 396; max-width: 100%;
+  background: var(--panel);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .6);
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+.hero-photo::after { /* gentle grade so the daytime photo sits in the blue page */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(15,27,45,0) 50%, rgba(15,27,45,.45) 100%);
+}
+.hero-photo figcaption {
+  position: absolute; left: .9rem; top: .9rem; z-index: 1;
+  font-family: var(--font-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+  background: rgba(15,27,45,.8); padding: .3rem .55rem; border-radius: 2px;
+}
+
+/* Service ticket */
+.ticket {
+  position: absolute; right: 0; bottom: 0; width: min(100%, 320px);
+  background: var(--concrete); color: var(--text-dark);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.25rem 1.2rem;
+  font-family: var(--font-mono); font-size: .8rem;
+  box-shadow: 0 24px 50px -20px rgba(0,0,0,.65);
+}
+.ticket::before { /* perforated top edge */
+  content: ""; position: absolute; left: 0; right: 0; top: -6px; height: 12px;
+  background: radial-gradient(circle at 6px 6px, var(--ink) 4px, transparent 4.5px) 0 0 / 14px 12px repeat-x;
+}
+.ticket-head { display: flex; justify-content: space-between; gap: 1rem; padding-bottom: .7rem; border-bottom: 1px dashed var(--line-dark); color: var(--muted-dark); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; }
+.ticket-row { display: flex; justify-content: space-between; gap: 1rem; padding-block: .45rem; }
+.ticket-row span:first-child { color: var(--muted-dark); }
+.ticket-row strong { font-weight: 500; text-align: right; }
+.status { display: inline-flex; align-items: center; gap: .45rem; font-weight: 500; }
+.status::before { content: ""; width: .55rem; height: .55rem; border-radius: 50%; background: currentColor; }
+.status.is-open { color: #1d7a45; }
+.status.is-closed { color: #a3392a; }
+.status.is-open::before { animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(29,122,69,.45); } 50% { box-shadow: 0 0 0 5px rgba(29,122,69,0); } }
+
+@media (min-width: 960px) {
+  .hero-grid { grid-template-columns: 1.05fr 1fr; gap: 4rem; }
+  .hero-visual { padding-bottom: 5rem; }
+  .ticket { right: -1.5rem; }
+}
+
+/* =====================================================================
+   7. PROOF STRIP
+   ===================================================================== */
+.proof { border-block: 1px solid var(--line); background: var(--panel); }
+.proof-grid { display: grid; }
+.proof-item { padding: 1.75rem 0; border-top: 1px solid var(--line); display: flex; align-items: baseline; gap: 1rem; }
+.proof-item:first-child { border-top: 0; }
+.proof-value { font-family: var(--font-display); font-weight: 700; font-size: clamp(2.4rem, 4vw, 3.25rem); line-height: 1; color: var(--signal); font-variant-numeric: tabular-nums; flex: none; min-width: 5.5rem; }
+.proof-label { color: var(--muted); font-size: .95rem; line-height: 1.4; }
+@media (min-width: 800px) {
+  .proof-grid { grid-template-columns: repeat(3, 1fr); }
+  .proof-item { border-top: 0; border-left: 1px solid var(--line); padding: 2.25rem 2rem; flex-direction: column; gap: .6rem; }
+  .proof-item:first-child { border-left: 0; padding-left: 0; }
+}
+
+/* =====================================================================
+   8. SERVICES — concrete band
+   ===================================================================== */
+.services { background: var(--concrete); color: var(--text-dark); }
+.services .tag { color: var(--muted-dark); }
+.section-head { display: grid; gap: 1.25rem; margin-bottom: clamp(2.5rem, 5vw, 4rem); }
+.section-head > * { min-width: 0; }
+.services .lead { color: var(--muted-dark); }
+@media (min-width: 900px) {
+  .section-head { grid-template-columns: 1fr 1fr; align-items: end; column-gap: 4rem; }
+  .section-head .tag { grid-column: 1 / -1; }
+}
+
+.service-grid { display: grid; gap: 1px; background: var(--line-dark); border: 1px solid var(--line-dark); border-radius: var(--radius); overflow: hidden; }
+.service {
+  position: relative;
+  background: var(--concrete);
+  padding: 1.75rem 1.5rem 1.6rem;
+  display: grid; grid-template-rows: auto auto 1fr auto; gap: .75rem;
+  transition: background-color .3s var(--ease);
+}
+.service::before { /* yellow edge on hover */
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--signal);
+  transform: scaleX(0); transform-origin: left; transition: transform .35s var(--ease);
+}
+.service:hover { background: #eef0f2; }
+.service:hover::before { transform: scaleX(1); }
+.service svg { width: 34px; height: 34px; color: var(--text-dark); }
+.service h3 { margin-top: .5rem; }
+.service p { color: var(--muted-dark); font-size: .95rem; }
+.service .spec { font-family: var(--font-mono); font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted-dark); padding-top: .85rem; border-top: 1px dashed var(--line-dark); }
+@media (min-width: 600px) { .service-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .service-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.services-foot { margin-top: 2.25rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1.25rem; }
+.services-foot p { color: var(--muted-dark); }
+.services-foot .btn--ghost { color: var(--text-dark); border-color: var(--text-dark); }
+.services-foot .btn--ghost:hover { background: var(--text-dark); color: var(--concrete); }
+
+/* =====================================================================
+   9. WHY US
+   ===================================================================== */
+.why-grid { display: grid; gap: 3rem; }
+.why-grid > * { min-width: 0; }
+.why-photo { position: relative; max-width: 380px; }
+.why-photo .frame { border-radius: var(--radius); overflow: hidden; aspect-ratio: 300 / 460; background: var(--panel); }
+.why-photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.85) contrast(1.05); }
+.why-photo figcaption { margin-top: .9rem; font-family: var(--font-mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.why-copy h2 { margin-top: 1.25rem; }
+.why-copy .lead { margin-top: 1.5rem; }
+.promises { margin-top: 2.5rem; display: grid; gap: 0; }
+.promise { display: grid; grid-template-columns: 2.25rem 1fr; gap: 1rem; padding-block: 1.25rem; border-top: 1px solid var(--line); }
+.promise:last-child { border-bottom: 1px solid var(--line); }
+.promise svg { width: 26px; height: 26px; color: var(--signal); margin-top: .15rem; }
+.promise h3 { font-size: 1.35rem; }
+.promise p { color: var(--muted); margin-top: .35rem; font-size: .95rem; }
+.why-copy .btn { margin-top: 2.5rem; }
+@media (min-width: 960px) { .why-grid { grid-template-columns: 380px 1fr; gap: 5.5rem; align-items: center; } }
+
+/* =====================================================================
+   10. HOW IT WORKS — a real sequence, so it's numbered
+   ===================================================================== */
+.how { background: var(--panel); border-block: 1px solid var(--line); }
+.steps { display: grid; gap: 1.25rem; counter-reset: step; }
+.step { position: relative; padding: 1.75rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--ink); }
+.step-no { font-family: var(--font-mono); font-size: .75rem; letter-spacing: .12em; color: var(--signal); }
+.step h3 { margin-top: .9rem; font-size: 1.9rem; }
+.step p { margin-top: .6rem; color: var(--muted); }
+@media (min-width: 900px) {
+  .steps { grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .step { border-radius: 0; }
+  .step + .step { border-left: 0; }
+  .step:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+  .step:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+  .step:not(:last-child)::after { /* arrow between steps */
+    content: ""; position: absolute; right: -9px; top: 50%; z-index: 1;
+    width: 16px; height: 16px; background: var(--ink);
+    border-top: 1px solid var(--line); border-right: 1px solid var(--line);
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+
+/* =====================================================================
+   11. REVIEWS
+   ===================================================================== */
+.reviews-grid { display: grid; gap: 1.25rem; }
+.review { display: flex; flex-direction: column; gap: 1.25rem; padding: 1.75rem; border-radius: var(--radius); background: var(--panel); border: 1px solid var(--line); }
+.review--feature { background: var(--signal); color: var(--on-signal); border-color: var(--signal); }
+.stars { display: flex; gap: 3px; color: var(--signal); }
+.review--feature .stars { color: var(--on-signal); }
+.stars svg { width: 16px; height: 16px; }
+.review blockquote p { font-size: 1.1rem; line-height: 1.55; }
+.review--feature blockquote p { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.6rem, 2.6vw, 2.1rem); line-height: 1.15; text-transform: uppercase; }
+.review figcaption { margin-top: auto; font-family: var(--font-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.review--feature figcaption { color: rgba(26,20,5,.75); }
+.reviews-foot { margin-top: 2rem; }
+@media (min-width: 900px) {
+  .reviews-grid { grid-template-columns: 1.3fr 1fr 1fr; }
+}
+
+/* =====================================================================
+   12. BOOKING + VISIT
+   ===================================================================== */
+.book { position: relative; }
+.book-grid { display: grid; gap: 3rem; }
+.book-grid > * { min-width: 0; }
+.book-copy h2 { margin-top: 1.25rem; }
+.book-copy .lead { margin-top: 1.25rem; }
+
+.visit { margin-top: 2.5rem; display: grid; gap: 1.75rem; }
+.visit h3 { font-size: 1.1rem; font-family: var(--font-mono); font-weight: 500; letter-spacing: .1em; color: var(--muted); }
+.visit address { font-style: normal; font-size: 1.1rem; margin-top: .5rem; }
+.visit .text-link { display: inline-block; margin-top: .5rem; font-size: .95rem; }
+.hours { margin-top: .6rem; width: 100%; max-width: 22rem; border-collapse: collapse; font-family: var(--font-mono); font-size: .88rem; font-variant-numeric: tabular-nums; }
+.hours td { padding: .38rem 0; border-bottom: 1px solid var(--line); }
+.hours td:last-child { text-align: right; color: var(--muted); }
+.hours tr.is-today td { color: var(--signal); }
+.phones { margin-top: .5rem; font-family: var(--font-mono); font-size: 1.05rem; line-height: 1.9; }
+.phones a { text-decoration: none; }
+.phones a:hover { color: var(--signal); }
+.phones small { color: var(--muted); font-size: .78rem; }
+
+.form-card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.5rem); position: relative; }
+.form-card::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 4px; background: var(--signal); border-radius: var(--radius) var(--radius) 0 0; }
+.form-head { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+.form-head h3 { font-size: 2rem; }
+.form-head .mono { font-size: .72rem; letter-spacing: .1em; color: var(--muted); }
+
+.form-grid { display: grid; gap: 1.25rem; }
+.field { display: grid; gap: .45rem; min-width: 0; }
+.field label, .field legend { font-size: .82rem; font-weight: 600; letter-spacing: .02em; padding: 0; }
+.field .opt { font-weight: 400; color: var(--muted); }
+.field input, .field select, .field textarea {
+  width: 100%; min-width: 0;
+  background: var(--ink);
+  border: 1px solid rgba(238,241,244,.18);
+  border-radius: var(--radius);
+  padding: .8rem .9rem;
+  font-size: 1rem;
+  color: var(--text);
+  transition: border-color .2s var(--ease), box-shadow .2s var(--ease);
+}
+.field select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--muted) 50%), linear-gradient(135deg, var(--muted) 50%, transparent 50%); background-position: calc(100% - 18px) 55%, calc(100% - 13px) 55%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 2.25rem; }
+.field textarea { resize: vertical; min-height: 5.5rem; }
+.field input::placeholder, .field textarea::placeholder { color: #6d7f95; }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: rgba(238,241,244,.32); }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--signal); box-shadow: 0 0 0 3px rgba(244,194,61,.2); }
+.field [aria-invalid="true"] { border-color: var(--closed); }
+.field-error { font-size: .82rem; color: var(--closed); }
+.field-error:empty { display: none; }
+
+fieldset.field { border: 0; margin: 0; padding: 0; }
+.choice-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; }
+.choice { position: relative; }
+.choice input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.choice span {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  min-height: 2.9rem; padding: .5rem; font-size: .9rem;
+  border: 1px solid rgba(238,241,244,.18); border-radius: var(--radius);
+  background: var(--ink); cursor: pointer;
+  transition: border-color .2s var(--ease), background-color .2s var(--ease), color .2s var(--ease);
+}
+.choice span:hover { border-color: rgba(238,241,244,.32); }
+.choice input:checked + span { border-color: var(--signal); color: var(--signal); background: rgba(244,194,61,.08); }
+.choice input:focus-visible + span { outline: 2px solid var(--signal); outline-offset: 2px; }
+
+.form-submit { margin-top: .5rem; display: grid; gap: .9rem; }
+.form-submit .btn { width: 100%; }
+.form-submit .btn[disabled] { opacity: .65; cursor: progress; }
+.form-note { font-size: .82rem; color: var(--muted); text-align: center; }
+
+.form-success { padding-block: 1rem; }
+.form-success .check { width: 56px; height: 56px; border-radius: 50%; background: var(--signal); color: var(--on-signal); display: grid; place-items: center; margin-bottom: 1.5rem; }
+.form-success h3 { font-size: 2.2rem; }
+.form-success p { margin-top: 1rem; color: var(--muted); }
+.form-success .mono { margin-top: 1.5rem; font-size: .8rem; color: var(--muted); }
+
+@media (min-width: 600px) {
+  .form-grid { grid-template-columns: 1fr 1fr; }
+  .field--full { grid-column: 1 / -1; }
+}
+@media (min-width: 1000px) { .book-grid { grid-template-columns: 1fr 1.15fr; gap: 5rem; align-items: start; } }
+
+/* =====================================================================
+   13. FOOTER
+   ===================================================================== */
+.footer { border-top: 1px solid var(--line); padding-block: 3rem calc(3rem + env(safe-area-inset-bottom, 0px)); font-size: .88rem; color: var(--muted); }
+.footer-inner { display: grid; gap: 1.5rem; }
+.footer a { text-decoration: none; }
+.footer a:hover { color: var(--signal); }
+.footer .brand { color: var(--text); }
+@media (min-width: 900px) { .footer-inner { grid-template-columns: 1fr auto; align-items: center; } }
+
+/* =====================================================================
+   14. MOBILE BOOKING BAR
+   ===================================================================== */
+.mobile-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+  display: flex; gap: .6rem;
+  padding: .7rem max(1rem, env(safe-area-inset-right, 0px)) calc(.7rem + env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+  background: rgba(15,27,45,.96); border-top: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  transform: translateY(110%); transition: transform .35s var(--ease);
+}
+.mobile-bar.is-visible { transform: none; }
+.mobile-bar .btn { flex: 1; }
+.mobile-bar .call {
+  flex: none; width: 3.4rem; display: grid; place-items: center;
+  border: 2px solid var(--line); border-radius: var(--radius); color: var(--text);
+}
+.mobile-bar .call svg { width: 20px; height: 20px; }
+@media (min-width: 900px) { .mobile-bar { display: none; } }
+@media (max-width: 899px) { .footer { padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px)); } }
+
+/* =====================================================================
+   15. MOTION — content is visible at rest; only off-screen items get
+   the "pre" state, added by JS, and fade up when scrolled to.
+   ===================================================================== */
+.reveal { transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
+.reveal.pre { opacity: 0; transform: translateY(24px); }
+.js .hero .enter { animation: enter .9s var(--ease) both; animation-delay: var(--d, 0s); }
+@keyframes enter { from { opacity: 0; transform: translateY(18px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal.pre { opacity: 1; transform: none; }
+}
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ===================================================================
+     NAV
+     =================================================================== -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="#top" aria-label="Continental Motors, back to top">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span class="brand-name"><span data-cfg="businessName">Continental Motors</span><small data-cfg="tagline">Auto repair · Scarborough</small></span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#why">Why us</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#book">Hours &amp; location</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <a class="nav-phone" href="tel:+16473517692" data-cfg="phone" data-cfg-href="tel">(647) 351-7692</a>
+      <a class="btn btn--sm" href="#book">Book Your Service</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ===================================================================
+     HERO
+     =================================================================== -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <span class="hero-word" aria-hidden="true">Continental</span>
+  <div class="container hero-grid">
+    <div>
+      <p class="tag enter" style="--d:.05s"><span data-cfg="heroTag">650 Markham Rd · Scarborough</span></p>
+      <h1 id="hero-title" class="enter" style="--d:.15s">Honest repairs.<br><span class="hl">Fair prices.</span></h1>
+      <p class="lead enter" style="--d:.3s">Oil changes, brakes, tires, alignments and Ontario safety certificates, done right by people who tell you what your car actually needs.</p>
+      <div class="hero-actions enter" style="--d:.45s">
+        <a class="btn" href="#book">
+          Book Your Service
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <p class="hero-call">or call <a href="tel:+16473517692" data-cfg="phone" data-cfg-href="tel">(647) 351-7692</a></p>
+      </div>
+    </div>
+
+    <div class="hero-visual enter" style="--d:.35s">
+      <figure class="hero-photo">
+        <img src="images/storefront.jpg" width="680" height="396"
+             alt="The Continental Motors shop on Markham Road: a red-brick building under a blue sign listing oil change, brakes, muffler, alignment, safety and tune-up"
+             fetchpriority="high" decoding="async">
+        <figcaption>The shop · Markham Rd</figcaption>
+      </figure>
+
+      <!-- Live "open now" ticket, driven by CONFIG.hours -->
+      <aside class="ticket" aria-label="Shop status">
+        <div class="ticket-head"><span>Work order</span><span id="ticketNo">No. 0650</span></div>
+        <div class="ticket-row"><span>Status</span><strong><span class="status" id="openStatus">Checking hours…</span></strong></div>
+        <div class="ticket-row"><span>Today</span><strong id="todayHours">—</strong></div>
+        <div class="ticket-row"><span>Phone</span><strong data-cfg="phone">(647) 351-7692</strong></div>
+        <div class="ticket-row"><span>Google</span><strong id="ticketReviews">166 reviews</strong></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     PROOF STRIP — from CONFIG.proof
+     =================================================================== -->
+<section class="proof" aria-label="At a glance">
+  <div class="container">
+    <ul class="proof-grid" id="proofGrid"></ul>
+  </div>
+</section>
+
+<!-- ===================================================================
+     SERVICES — from CONFIG.services
+     =================================================================== -->
+<section class="section services" id="services" aria-labelledby="services-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="tag reveal">Service menu</p>
+      <h2 id="services-title" class="reveal">Everything your car<br>needs, under one roof.</h2>
+      <p class="lead reveal">Book any of these online. If you're not sure what's wrong, choose "Not sure" and we'll take a look first.</p>
+    </header>
+
+    <ul class="service-grid" id="serviceGrid"></ul>
+
+    <div class="services-foot reveal">
+      <p data-cfg="servicesAlso">Also: tune-ups, body &amp; trim, and general maintenance.</p>
+      <a class="btn btn--ghost" href="#book">Book Your Service</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     WHY US
+     =================================================================== -->
+<section class="section" id="why" aria-labelledby="why-title">
+  <div class="container why-grid">
+    <figure class="why-photo reveal">
+      <div class="frame">
+        <img src="images/service-bay.jpg" width="300" height="460" loading="lazy" decoding="async"
+             alt="Inside the Continental Motors service bays, with cars on the hoists">
+      </div>
+      <figcaption>Inside the service bays</figcaption>
+    </figure>
+
+    <div class="why-copy">
+      <p class="tag reveal">Why drivers come back</p>
+      <h2 id="why-title" class="reveal">We fix what's broken.<br><span class="hl">Then we stop.</span></h2>
+      <p class="lead reveal">Our customers say the same thing again and again: we're honest, our prices are fair, and we don't push repairs you don't need.</p>
+
+      <ul class="promises">
+        <li class="promise reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h4"/></svg>
+          <div><h3>A clear quote first</h3><p>We inspect, explain what we found, and give you a price before any work starts.</p></div>
+        </li>
+        <li class="promise reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+          <div><h3>No upselling</h3><p>If it can wait, we'll tell you. If it can't, we'll show you why.</p></div>
+        </li>
+        <li class="promise reveal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <div><h3>Back on the road fast</h3><p>Routine jobs like oil changes and tire swaps are often done while you wait.</p></div>
+        </li>
+      </ul>
+
+      <a class="btn reveal" href="#book">
+        Book Your Service
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================
+     HOW IT WORKS
+     =================================================================== -->
+<section class="section how" aria-labelledby="how-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="tag reveal">How it works</p>
+      <h2 id="how-title" class="reveal">Three steps.<br>No surprises.</h2>
+    </header>
+    <ol class="steps">
+      <li class="step reveal">
+        <p class="step-no">STEP 01</p>
+        <h3>Book</h3>
+        <p>Send a request below or call the shop. We'll confirm a time that works for you.</p>
+      </li>
+      <li class="step reveal" style="--d:.1s">
+        <p class="step-no">STEP 02</p>
+        <h3>Inspect &amp; quote</h3>
+        <p>We look at the car, explain what we find in plain language, and quote the job.</p>
+      </li>
+      <li class="step reveal" style="--d:.2s">
+        <p class="step-no">STEP 03</p>
+        <h3>Repair &amp; drive</h3>
+        <p>You approve, we do the work, and you pick up your car with nothing left unexplained.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===================================================================
+     REVIEWS — real Google reviews
+     =================================================================== -->
+<section class="section" id="reviews" aria-labelledby="reviews-title">
+  <div class="container">
+    <header class="section-head">
+      <p class="tag reveal">Google reviews</p>
+      <h2 id="reviews-title" class="reveal"><span id="reviewCount">166</span> drivers<br>have reviewed us.</h2>
+      <p class="lead reveal">Here's what they say.</p>
+    </header>
+
+    <div class="reviews-grid">
+      <figure class="review review--feature reveal">
+        <div class="stars" aria-label="5 out of 5 stars"></div>
+        <blockquote><p>“The team is professional, honest, and the prices are always reasonable. They do quality work without trying to upsell unnecessary repairs.”</p></blockquote>
+        <figcaption>Google review · Highly recommend</figcaption>
+      </figure>
+      <figure class="review reveal" style="--d:.1s">
+        <div class="stars" aria-label="5 out of 5 stars"></div>
+        <blockquote><p>“Fantastic service, honest people and reliable service with fair price.”</p></blockquote>
+        <figcaption>Google review</figcaption>
+      </figure>
+      <figure class="review reveal" style="--d:.2s">
+        <div class="stars" aria-label="5 out of 5 stars"></div>
+        <blockquote><p>“Amazing service and best price. Good work.”</p></blockquote>
+        <figcaption>Google review</figcaption>
+      </figure>
+    </div>
+
+    <p class="reviews-foot reveal"><a class="text-link" id="reviewsLink" href="#" target="_blank" rel="noopener">Read all reviews on Google ↗</a></p>
+  </div>
+</section>
+
+<!-- ===================================================================
+     BOOKING + VISIT
+     =================================================================== -->
+<section class="section book" id="book" aria-labelledby="book-title">
+  <div class="container book-grid">
+    <div class="book-copy">
+      <p class="tag reveal">Book a service</p>
+      <h2 id="book-title" class="reveal">Tell us about<br>your car.</h2>
+      <p class="lead reveal">Send a request and we'll call you back to confirm your appointment, usually the same business day.</p>
+
+      <div class="visit reveal">
+        <div>
+          <h3>VISIT</h3>
+          <address data-cfg="addressFull">650 Markham Rd, Scarborough, ON M1H 2A7</address>
+          <a class="text-link" id="directionsLink" href="#" target="_blank" rel="noopener">Get directions ↗</a>
+        </div>
+        <div>
+          <h3>HOURS</h3>
+          <table class="hours" id="hoursTable" aria-label="Opening hours"><tbody></tbody></table>
+        </div>
+        <div>
+          <h3>CALL</h3>
+          <p class="phones">
+            <a href="tel:+16473517692" data-cfg="phone" data-cfg-href="tel">(647) 351-7692</a><br>
+            <a href="tel:+14165751277" data-cfg="phone2" data-cfg-href="tel2">(416) 575-1277</a> <small>alt.</small>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card reveal">
+      <form id="bookingForm" novalidate>
+        <div class="form-head">
+          <h3>Book Your Service</h3>
+          <span class="mono">Takes about 1 minute</span>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label for="f-name">Your name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required aria-describedby="e-name">
+            <p class="field-error" id="e-name" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="f-phone">Phone</label>
+            <input id="f-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="e-phone" placeholder="(416) 555-0123">
+            <p class="field-error" id="e-phone" aria-live="polite"></p>
+          </div>
+          <div class="field field--full">
+            <label for="f-email">Email <span class="opt">(optional)</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" aria-describedby="e-email">
+            <p class="field-error" id="e-email" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="f-vehicle">Vehicle</label>
+            <input id="f-vehicle" name="vehicle" type="text" required aria-describedby="e-vehicle" placeholder="2018 Mazda CX-5">
+            <p class="field-error" id="e-vehicle" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="f-service">Service needed</label>
+            <select id="f-service" name="service" required aria-describedby="e-service">
+              <option value="">Choose a service</option>
+            </select>
+            <p class="field-error" id="e-service" aria-live="polite"></p>
+          </div>
+          <div class="field">
+            <label for="f-date">Preferred date</label>
+            <input id="f-date" name="date" type="date" required aria-describedby="e-date">
+            <p class="field-error" id="e-date" aria-live="polite"></p>
+          </div>
+          <fieldset class="field">
+            <legend>Preferred time</legend>
+            <div class="choice-group">
+              <label class="choice"><input id="f-time-am" type="radio" name="time" value="Morning" checked><span>Morning</span></label>
+              <label class="choice"><input id="f-time-pm" type="radio" name="time" value="Afternoon"><span>Afternoon</span></label>
+              <label class="choice"><input id="f-time-any" type="radio" name="time" value="Any time"><span>Any</span></label>
+            </div>
+          </fieldset>
+          <div class="field field--full">
+            <label for="f-notes">What's going on? <span class="opt">(optional)</span></label>
+            <textarea id="f-notes" name="notes" rows="3" placeholder="e.g. Grinding noise when braking, started last week"></textarea>
+          </div>
+        </div>
+        <div class="form-submit">
+          <button class="btn" type="submit"><span class="btn-label">Request My Appointment</span></button>
+          <p class="form-note">We'll call to confirm. No payment needed to book.</p>
+        </div>
+      </form>
+
+      <div class="form-success" id="formSuccess" hidden tabindex="-1" aria-live="polite">
+        <div class="check" aria-hidden="true"><svg width="22" height="16" viewBox="0 0 22 16" fill="none"><path d="M2 8l6 6L20 2" stroke="currentColor" stroke-width="2.4"/></svg></div>
+        <h3 id="successTitle">Request received.</h3>
+        <p id="successText">We'll call you to confirm your appointment.</p>
+        <p class="mono" id="successRef"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <span class="brand-mark" aria-hidden="true">C</span>
+      <span class="brand-name"><span data-cfg="businessName">Continental Motors</span><small data-cfg="addressFull">650 Markham Rd, Scarborough, ON M1H 2A7</small></span>
+    </a>
+    <p>© <span id="year">2026</span> <span data-cfg="businessName">Continental Motors</span> · <a href="tel:+16473517692" data-cfg="phone" data-cfg-href="tel">(647) 351-7692</a></p>
+  </div>
+</footer>
+
+<!-- Mobile: booking stays one tap away -->
+<div class="mobile-bar" id="mobileBar">
+  <a class="btn" href="#book">Book Your Service</a>
+  <a class="call" href="tel:+16473517692" data-cfg-href="tel" aria-label="Call the shop">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2"/></svg>
+  </a>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIG — everything client-specific lives here.
+   (Colours and fonts are the CSS variables at the top of the <style>.)
+   ===================================================================== */
+const CONFIG = {
+  businessName: "Continental Motors",
+  tagline:      "Auto repair · Scarborough",
+  heroTag:      "650 Markham Rd · Scarborough",
+
+  phone:      "(647) 351-7692",
+  phoneE164:  "+16473517692",
+  phone2:     "(416) 575-1277",     // second number from the shop sign (confirm still active)
+  phone2E164: "+14165751277",
+
+  address: { street: "650 Markham Rd", city: "Scarborough", region: "ON", postal: "M1H 2A7", country: "CA" },
+  addressFull: "650 Markham Rd, Scarborough, ON M1H 2A7",
+  mapsQuery:   "Continental Motors, 650 Markham Rd, Scarborough, ON",
+  siteUrl:     "https://www.example.com/",
+  timeZone:    "America/Toronto",
+
+  reviewCount: 166,
+
+  // Opening hours, 24h "HH:MM". null = closed. CONFIRM WITH THE OWNER.
+  hours: {
+    mon: ["08:30", "18:00"],
+    tue: ["08:30", "18:00"],
+    wed: ["08:30", "18:00"],
+    thu: ["08:30", "18:00"],
+    fri: ["08:30", "18:00"],
+    sat: ["09:00", "15:00"],
+    sun: null
+  },
+
+  // Proof strip
+  proof: [
+    { value: "166",  label: "Google reviews from local drivers" },
+    { value: "2012", label: "On Markham Road since at least" },   // confirm founding year
+    { value: "$0",   label: "To book. You approve the quote before we start" }
+  ],
+
+  servicesAlso: "Also: tune-ups, body & trim, and general maintenance.",
+
+  // Service menu. icon = key from ICONS below. "spec" is the small work-order line.
+  services: [
+    { name: "Oil change",         icon: "oil",       text: "Conventional and synthetic oil, new filter, and a quick multi-point check.", spec: "Typical interval · 8,000–10,000 km" },
+    { name: "Brakes",             icon: "brake",     text: "Pads, rotors, calipers and fluid. Squeals and grinding diagnosed properly.", spec: "Inspect · every tire change" },
+    { name: "Tires",              icon: "tire",      text: "Seasonal changeovers, mounting, balancing and flat repairs.",                 spec: "Winter swap · below 7 °C" },
+    { name: "Wheel alignment",    icon: "align",     text: "Stops pulling and uneven tire wear, and keeps the steering straight.",          spec: "Check · after new tires" },
+    { name: "Safety certificate", icon: "safety",    text: "Ontario Safety Standards Certificate inspections for buying or selling.",     spec: "Required · on vehicle transfer" },
+    { name: "Battery",            icon: "battery",   text: "Testing, charging-system checks and same-day replacement.",                   spec: "Typical life · 3–5 years" },
+    { name: "Transmission",       icon: "trans",     text: "Fluid service, diagnosis and repair for automatic and manual gearboxes.",    spec: "Fluid check · per owner's manual" },
+    { name: "Muffler & exhaust",  icon: "exhaust",   text: "Mufflers, pipes, hangers and leaks. Fixes rattles and loud exhausts.",       spec: "Listen for · rattles, roaring" }
+  ],
+
+  // Booking: see "CONNECT YOUR FORM SERVICE" below
+  formEndpoint: "",   // e.g. "https://formspree.io/f/abcdwxyz"
+  calendlyUrl:  ""    // optional
+};
+
+/* Line icons for the service menu (24×24, stroke = currentColor) */
+const ICONS = {
+  oil:     '<path d="M12 3c3 4 6 7.5 6 11a6 6 0 01-12 0c0-3.5 3-7 6-11z"/><path d="M9.5 15a2.5 2.5 0 002.5 2.5"/>',
+  brake:   '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.5"/><path d="M17 5.5a9 9 0 012.8 4"/><path d="M15.5 3.8l3.8 1.6-1.4 3.6"/>',
+  tire:    '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/>',
+  align:   '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="1.8"/><path d="M12 3.5v6.7M4 14l6.3-1.4M20 14l-6.3-1.4"/>',
+  safety:  '<path d="M12 3l8 3v6c0 4.5-3.4 8.2-8 9-4.6-.8-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>',
+  battery: '<rect x="3" y="7" width="18" height="12" rx="1.5"/><path d="M7 7V5h3v2M14 7V5h3v2M6.5 13h3M15 13h3M16.5 11.5v3"/>',
+  trans:   '<circle cx="6" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="18" cy="5" r="1.6"/><circle cx="6" cy="19" r="1.6"/><circle cx="12" cy="19" r="1.6"/><path d="M6 6.6v10.8M12 6.6v10.8M18 6.6V12H6"/>',
+  exhaust: '<path d="M3 14h9a3 3 0 003-3V9h3"/><rect x="15" y="6.5" width="6" height="5" rx="1"/><path d="M5 18c1-1 2 1 3 0s2 1 3 0"/>'
+};
+
+/* =====================================================================
+   APP
+   ===================================================================== */
+(function () {
+  "use strict";
+  document.documentElement.classList.add("js");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $  = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  /* ---- 1. Apply CONFIG text & links -------------------------------- */
+  $$("[data-cfg]").forEach((el) => { const v = CONFIG[el.dataset.cfg]; if (v != null) el.textContent = v; });
+  $$("[data-cfg-href]").forEach((el) => {
+    if (el.dataset.cfgHref === "tel")  el.href = "tel:" + CONFIG.phoneE164;
+    if (el.dataset.cfgHref === "tel2") el.href = "tel:" + CONFIG.phone2E164;
+  });
+  const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.mapsQuery);
+  $("#directionsLink").href = mapsUrl;
+  $("#reviewsLink").href = mapsUrl;
+  $("#reviewCount").textContent = CONFIG.reviewCount;
+  $("#ticketReviews").textContent = CONFIG.reviewCount + " reviews";
+  $("#year").textContent = new Date().getFullYear();
+
+  const star = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 1.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8L10 14.8l-5.2 2.8 1-5.8L1.5 7.7l5.9-.9z"/></svg>';
+  $$(".stars").forEach((el) => (el.innerHTML = star.repeat(5)));
+
+  /* ---- 2. Proof strip & services ----------------------------------- */
+  $("#proofGrid").innerHTML = CONFIG.proof.map((p) => `
+    <li class="proof-item reveal"><span class="proof-value">${esc(p.value)}</span><span class="proof-label">${esc(p.label)}</span></li>`).join("");
+
+  $("#serviceGrid").innerHTML = CONFIG.services.map((s, i) => `
+    <li class="service reveal" style="--d:${(i % 4) * 0.06}s">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[s.icon] || ""}</svg>
+      <h3>${esc(s.name)}</h3>
+      <p>${esc(s.text)}</p>
+      <p class="spec">${esc(s.spec)}</p>
+    </li>`).join("");
+
+  const select = $("#f-service");
+  [...CONFIG.services.map((s) => s.name), "Not sure / diagnose a problem"].forEach((name) => {
+    const o = document.createElement("option"); o.value = o.textContent = name; select.appendChild(o);
+  });
+
+  /* ---- 3. Hours, "open now", today highlight ----------------------- */
+  const DAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+  const DAY_NAMES = { mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday" };
+  const fmt = (hhmm) => {
+    let [h, m] = hhmm.split(":").map(Number);
+    const ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12;
+    return `${h}:${String(m).padStart(2, "0")} ${ap}`;
+  };
+  // Current day/time in the shop's time zone, whatever the visitor's
+  const shopNow = () => {
+    const parts = new Intl.DateTimeFormat("en-US", { timeZone: CONFIG.timeZone, weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date());
+    const get = (t) => parts.find((p) => p.type === t).value;
+    return { day: get("weekday").slice(0, 3).toLowerCase(), mins: (+get("hour") % 24) * 60 + +get("minute") };
+  };
+  const toMins = (hhmm) => { const [h, m] = hhmm.split(":").map(Number); return h * 60 + m; };
+
+  const now = shopNow();
+  $("#hoursTable tbody").innerHTML = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"].map((d) => {
+    const h = CONFIG.hours[d];
+    return `<tr class="${d === now.day ? "is-today" : ""}"><td>${DAY_NAMES[d]}</td><td>${h ? fmt(h[0]) + " – " + fmt(h[1]) : "Closed"}</td></tr>`;
+  }).join("");
+
+  const updateStatus = () => {
+    const n = shopNow(), today = CONFIG.hours[n.day], el = $("#openStatus");
+    $("#todayHours").textContent = today ? `${fmt(today[0])} – ${fmt(today[1])}` : "Closed";
+    const open = today && n.mins >= toMins(today[0]) && n.mins < toMins(today[1]);
+    if (open) {
+      el.textContent = "Open · closes " + fmt(today[1]);
+    } else {
+      // find the next opening
+      let next = "";
+      for (let i = 0; i < 7; i++) {
+        const d = DAYS[(DAYS.indexOf(n.day) + i) % 7], h = CONFIG.hours[d];
+        if (!h) continue;
+        if (i === 0 && n.mins >= toMins(h[0])) continue;
+        next = (i === 0 ? "today " : i === 1 ? "tomorrow " : DAY_NAMES[d].slice(0, 3) + " ") + fmt(h[0]);
+        break;
+      }
+      el.textContent = "Closed · opens " + next;
+    }
+    el.className = "status " + (open ? "is-open" : "is-closed");
+  };
+  updateStatus();
+  setInterval(updateStatus, 60000);
+
+  // JSON-LD opening hours + contact from CONFIG
+  try {
+    const ld = JSON.parse($("#jsonld").textContent);
+    ld.name = CONFIG.businessName; ld.url = CONFIG.siteUrl; ld.telephone = CONFIG.phoneE164;
+    Object.assign(ld.address, { streetAddress: CONFIG.address.street, addressLocality: CONFIG.address.city, addressRegion: CONFIG.address.region, postalCode: CONFIG.address.postal, addressCountry: CONFIG.address.country });
+    ld.openingHoursSpecification = Object.entries(CONFIG.hours).filter(([, h]) => h).map(([d, h]) => ({
+      "@type": "OpeningHoursSpecification", dayOfWeek: DAY_NAMES[d], opens: h[0], closes: h[1]
+    }));
+    $("#jsonld").textContent = JSON.stringify(ld);
+  } catch (_) {}
+
+  /* ---- 4. Nav + mobile bar on scroll ------------------------------- */
+  const nav = $("#nav"), bar = $("#mobileBar"), book = $("#book");
+  const onScroll = () => {
+    nav.classList.toggle("is-solid", window.scrollY > 20);
+    const bookTop = book.getBoundingClientRect().top;
+    bar.classList.toggle("is-visible", window.scrollY > 500 && bookTop > window.innerHeight * 0.6);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  /* ---- 5. Reveal: only items below the fold start hidden ----------- */
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.remove("pre"); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+    $$(".reveal").forEach((el) => {
+      if (el.getBoundingClientRect().top > window.innerHeight) { el.classList.add("pre"); io.observe(el); }
+    });
+  }
+
+  /* ---- 6. Booking form --------------------------------------------- */
+  const form = $("#bookingForm");
+  const dateInput = $("#f-date");
+  const t = new Date();
+  dateInput.min = new Date(t.getTime() - t.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+
+  const setError = (input, id, msg) => {
+    $("#" + id).textContent = msg;
+    input.setAttribute("aria-invalid", msg ? "true" : "false");
+    return !msg;
+  };
+  const validate = () => {
+    const f = { name: $("#f-name"), phone: $("#f-phone"), email: $("#f-email"), vehicle: $("#f-vehicle"), service: select, date: dateInput };
+    const checks = [
+      [f.name,    "e-name",    f.name.value.trim().length > 1, "Enter your name."],
+      [f.phone,   "e-phone",   f.phone.value.replace(/\D/g, "").length >= 10, "Enter a 10-digit phone number so we can confirm."],
+      [f.email,   "e-email",   !f.email.value.trim() || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim()), "Check the email address, or leave it blank."],
+      [f.vehicle, "e-vehicle", f.vehicle.value.trim().length > 2, "Enter the year, make and model."],
+      [f.service, "e-service", !!f.service.value, "Choose a service, or pick “Not sure”."],
+      [f.date,    "e-date",    !!f.date.value && f.date.value >= dateInput.min, "Choose today or a later date."]
+    ];
+    let first = null;
+    checks.forEach(([el, id, ok, msg]) => { if (!setError(el, id, ok ? "" : msg) && !first) first = el; });
+    if (first) first.focus();
+    return !first;
+  };
+  form.addEventListener("input", (e) => {
+    const err = e.target.closest(".field") && $(".field-error", e.target.closest(".field"));
+    if (err && err.textContent) { err.textContent = ""; e.target.setAttribute("aria-invalid", "false"); }
+  });
+  form.addEventListener("change", (e) => { if (e.target === select && select.value) setError(select, "e-service", ""); });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    const btn = $("button[type=submit]", form), label = $(".btn-label", btn);
+    btn.disabled = true; label.textContent = "Sending…";
+    const data = new FormData(form);
+
+    /* =============================================================
+       CONNECT YOUR FORM SERVICE HERE
+       -------------------------------------------------------------
+       Option A — Formspree (or Getform, Basin…):
+         Create a form at https://formspree.io, copy its endpoint into
+         CONFIG.formEndpoint. The fetch() below then POSTs every
+         request there and the shop gets an email.
+       Option B — Online calendar (Calendly, Square Appointments…):
+         Put the link in CONFIG.calendlyUrl; the success message will
+         offer it as a next step.
+       With neither set, the form just shows the success state (demo).
+       ============================================================= */
+    try {
+      if (CONFIG.formEndpoint) {
+        const res = await fetch(CONFIG.formEndpoint, { method: "POST", body: data, headers: { Accept: "application/json" } });
+        if (!res.ok) throw new Error("Request failed");
+      } else {
+        await new Promise((r) => setTimeout(r, 800)); // demo mode
+      }
+      const first = String(data.get("name")).trim().split(/\s+/)[0];
+      const when = new Date(data.get("date") + "T12:00:00").toLocaleDateString("en-CA", { weekday: "long", month: "long", day: "numeric" });
+      $("#successTitle").textContent = `Thanks, ${first}.`;
+      $("#successText").textContent = `We've got your request for ${String(data.get("service")).toLowerCase()} on your ${data.get("vehicle")}, ${when} (${String(data.get("time")).toLowerCase()}). We'll call ${data.get("phone")} to confirm.`;
+      $("#successRef").textContent = "Work order request · " + new Date().toISOString().slice(2, 10).replace(/-/g, "") + "-" + String(Math.floor(Math.random() * 900) + 100);
+      if (CONFIG.calendlyUrl) {
+        const a = document.createElement("a");
+        a.className = "text-link"; a.href = CONFIG.calendlyUrl; a.target = "_blank"; a.rel = "noopener";
+        a.textContent = "Or pick an exact time now ↗";
+        const p = document.createElement("p"); p.style.marginTop = "1.25rem"; p.appendChild(a);
+        $("#formSuccess").appendChild(p);
+      }
+      form.hidden = true;
+      $("#formSuccess").hidden = false;
+      $("#formSuccess").focus();
+    } catch (err) {
+      btn.disabled = false; label.textContent = "Request My Appointment";
+      setError(dateInput, "e-date", `That didn't go through. Try again, or call ${CONFIG.phone}.`);
+    }
+  });
+})();
+</script>
+</body>
+</html>
